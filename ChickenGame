@@ -21,7 +21,7 @@ function love.load()
         love.graphics.newImage("chicken2.png"),
         love.graphics.newImage("chicken3.png")
     }
-    
+
        -- Chicken
     chicken = {
         x = math.random(50, 750),
@@ -40,4 +40,50 @@ function love.load()
 
     score = 0
     lives = 3
+end
+
+-- Reset chicken
+function spawnChicken()
+    chicken.x = math.random(50, 750)
+    chicken.y = 0
+    chicken.sprite = chickenSprites[math.random(1, #chickenSprites)]
+end
+
+-- Collision check
+function checkCollision(a, b)
+    return a.x < b.x + 50 and
+           b.x < a.x + 50 and
+           a.y < b.y + 50 and
+           b.y < a.y + 50
+end
+
+function love.update(dt)
+    -- Player movement
+    if love.keyboard.isDown("a") then
+        player.x = player.x - player.speed * dt
+    end
+    if love.keyboard.isDown("d") then
+        player.x = player.x + player.speed * dt
+    end
+
+    -- Chicken falling
+    chicken.y = chicken.y + chicken.speed * dt
+
+    -- Power-up check (chicken hits it)
+    if powerUp.active and checkCollision(chicken, powerUp) then
+        powerUp.active = false
+        chicken.speed = chicken.speed + 100 -- speed up game
+    end
+
+    -- Catch chicken
+    if checkCollision(player, chicken) then
+        score = score + 1
+        spawnChicken()
+    end
+
+    -- Miss chicken
+    if chicken.y > 600 then
+        lives = lives - 1
+        spawnChicken()
+    end
 end
