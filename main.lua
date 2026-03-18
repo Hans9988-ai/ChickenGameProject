@@ -4,7 +4,10 @@
 
 function love.load()
     math.randomseed(os.time())
+    resetGame()
+end
 
+function resetGame()
     player = {
         x = 300,
         y = 550,
@@ -52,6 +55,8 @@ function love.load()
     score = 0
     lives = 3
     gameOver = false
+    playerWon = false
+    winScore = 30
 
     spawnPowerUp()
     spawnSlowPowerUp()
@@ -91,7 +96,7 @@ function checkCollision(a, b)
 end
 
 function love.update(dt)
-    if gameOver then
+    if gameOver or playerWon then
         return
     end
 
@@ -135,7 +140,6 @@ function love.update(dt)
         slowPowerUp.timer = slowPowerUp.respawnTime
         chicken.speed = chicken.speed - 100
 
-        -- Prevent speed from going too low
         if chicken.speed < 50 then
             chicken.speed = 50
         end
@@ -161,8 +165,14 @@ function love.update(dt)
         spawnChicken()
     end
 
+    -- Lose condition
     if lives <= 0 then
         gameOver = true
+    end
+
+    -- Win condition
+    if score >= winScore then
+        playerWon = true
     end
 end
 
@@ -181,8 +191,21 @@ function love.draw()
     love.graphics.print("Score: " .. score, 10, 10)
     love.graphics.print("Lives: " .. lives, 10, 30)
     love.graphics.print("Chicken Speed: " .. chicken.speed, 10, 50)
+    love.graphics.print("Reach 30 points to win!", 10, 70)
 
     if gameOver then
         love.graphics.print("GAME OVER", 350, 300)
+        love.graphics.print("Press R to Restart", 330, 330)
+    end
+
+    if playerWon then
+        love.graphics.print("YOU WIN!", 360, 300)
+        love.graphics.print("Press R to Restart", 330, 330)
+    end
+end
+
+function love.keypressed(key)
+    if key == "r" and (gameOver or playerWon) then
+        resetGame()
     end
 end
