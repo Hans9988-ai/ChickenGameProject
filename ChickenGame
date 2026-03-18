@@ -1,0 +1,16 @@
+-- ChickenGameProject
+-- Created by: Kevin Dowd
+-- Created on: March 18, 2026
+
+math.randomseed(os.time())
+
+-- Game settings
+local width = 7
+local height = 10
+local score = 0
+local lives = 3
+local speed = 1
+local turnDelayMessage = "Normal"
+
+-- Player starts in the middle
+local playerX = math.ceil(width / 2)
