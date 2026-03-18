@@ -87,3 +87,24 @@ function love.update(dt)
         spawnChicken()
     end
 end
+
+function love.draw()
+    -- Draw player
+    love.graphics.draw(player.sprite, player.x, player.y)
+
+    -- Draw chicken
+    love.graphics.draw(chicken.sprite, chicken.x, chicken.y)
+
+    -- Draw power-up
+    if powerUp.active then
+        love.graphics.draw(powerUp.sprite, powerUp.x, powerUp.y)
+    end
+
+    -- UI
+    love.graphics.print("Score: " .. score, 10, 10)
+    love.graphics.print("Lives: " .. lives, 10, 30)
+
+    if lives <= 0 then
+        love.graphics.print("GAME OVER", 350, 300)
+    end
+end
