@@ -21,3 +21,23 @@ function love.load()
         love.graphics.newImage("chicken2.png"),
         love.graphics.newImage("chicken3.png")
     }
+    
+       -- Chicken
+    chicken = {
+        x = math.random(50, 750),
+        y = 0,
+        speed = 150,
+        sprite = chickenSprites[math.random(1, #chickenSprites)]
+    }
+
+    -- Power-up (static)
+    powerUp = {
+        x = math.random(50, 750),
+        y = math.random(200, 400),
+        active = true,
+        sprite = love.graphics.newImage("powerup.png")
+    }
+
+    score = 0
+    lives = 3
+end
