@@ -90,14 +90,14 @@ end
 
 function love.draw()
     -- Draw player
-    love.graphics.draw(player.sprite, player.x, player.y)
+    love.graphics.draw(player.sprite, player.x, player.y, 0, 0.5, 0.5)
 
     -- Draw chicken
-    love.graphics.draw(chicken.sprite, chicken.x, chicken.y)
+    love.graphics.draw(chicken.sprite, chicken.x, chicken.y, 0, 0.5, 0.5)
 
     -- Draw power-up
     if powerUp.active then
-        love.graphics.draw(powerUp.sprite, powerUp.x, powerUp.y)
+        love.graphics.draw(powerUp.sprite, powerUp.x, powerUp.y, 0, 0.5, 0.5)
     end
 
     -- UI
