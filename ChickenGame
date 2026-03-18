@@ -2,15 +2,22 @@
 -- Created by: Kevin Dowd
 -- Created on: March 18, 2026
 
-math.randomseed(os.time())
+function love.load()
+    math.randomseed(os.time())
 
--- Game settings
-local width = 7
-local height = 10
-local score = 0
-local lives = 3
-local speed = 1
-local turnDelayMessage = "Normal"
+    -- Player
+    player = {
+        x = 300,
+        y = 550,
+        speed = 300,
+        width = 50,
+        height = 50,
+        sprite = love.graphics.newImage("player.png")
+    }
 
--- Player starts in the middle
-local playerX = math.ceil(width / 2)
+    -- Load chicken sprites
+    chickenSprites = {
+        love.graphics.newImage("chicken1.png"),
+        love.graphics.newImage("chicken2.png"),
+        love.graphics.newImage("chicken3.png")
+    }
